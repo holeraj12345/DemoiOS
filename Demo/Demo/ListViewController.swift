@@ -70,6 +70,8 @@ class ListViewController: UIViewController {
         table.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         table.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         table.dataSource = self
+        table.separatorStyle = .none
+        table.allowsSelection = false
         self.view.layoutIfNeeded()
         self.view.backgroundColor = .gray
     }
