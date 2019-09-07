@@ -13,7 +13,6 @@ struct Model : Codable {
     let rows : [Rows]?
     
     enum CodingKeys: String, CodingKey {
-        
         case title = "title"
         case rows = "rows"
     }

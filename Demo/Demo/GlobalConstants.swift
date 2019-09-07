@@ -9,10 +9,7 @@
 import Foundation
 import UIKit
 
-let reuseIdentifier = "CustomCollectionCell"
-let deviceIdiom = UIScreen.main.traitCollection.userInterfaceIdiom
 let url = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
-let screenSize = UIScreen.main.bounds.size
 let imgPlaceholder = "placeholder"
 
 

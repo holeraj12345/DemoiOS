@@ -9,18 +9,6 @@
 import UIKit
 import AlamofireImage
 
-extension NSObject {
-    
-    /// Method to get class name
-    var className: String {
-        return String(describing: type(of: self))
-    }
-    
-    /// static method to get class name
-    class var className: String {
-        return String(describing: self)
-    }
-}
 
 class ListViewController: UIViewController {
     static let annotationPadding: CGFloat = 4
@@ -31,7 +19,6 @@ class ListViewController: UIViewController {
     var viewModel : ViewModel = ViewModel()
     var table = UITableView()
     var titleLbl: UILabel = {
-        
         let label = UILabel()
         label.text = "Loading"
         label.textAlignment = NSTextAlignment.center
@@ -41,15 +28,12 @@ class ListViewController: UIViewController {
     }()
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.getData()
-        //let nib = UINib(nibName: Cell.className, bundle: Bundle.main)
-        //table.register(nib, forCellReuseIdentifier: Cell.className)
+    /// This will create title and table
+    func setUpInitialData(){
         table.register(Cell.self, forCellReuseIdentifier: "Cell")
         self.refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
         self.table.addSubview(refresher)
-
+        
         lblTitle.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(lblTitle)
         lblTitle.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 20).isActive = true
@@ -57,9 +41,6 @@ class ListViewController: UIViewController {
         lblTitle.numberOfLines = 0
         lblTitle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: 20).isActive = true
         lblTitle.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        lblTitle.backgroundColor = .red
-        //lblTitle.bottomAnchor.constraint(equalTo:backView.bottomAnchor).isActive = true
-        //photoView.bottomAnchor.constraint(equalTo:lblTitle.topAnchor).isActive = true
         lblTitle.backgroundColor = .gray
         lblTitle.text = "Loading"
         
@@ -75,8 +56,16 @@ class ListViewController: UIViewController {
         self.view.layoutIfNeeded()
         self.view.backgroundColor = .gray
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getData()
+        setUpInitialData()
+    }
+    
+    
+    /// This will load data from APi
     func getData() {
-        
         if Connectivity.isConnectedToInternet() {
             
             self.viewModel.getList {
@@ -95,7 +84,6 @@ class ListViewController: UIViewController {
             
         }
         
-        
     }
     
     @objc func loadData() {
@@ -112,7 +100,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-
+        
         let object  = self.model?.rows? [indexPath.row]
         
         cell.lblTitle.text = object?.title

@@ -23,6 +23,11 @@ let padding = CGFloat(8)
     }
     
     
+    /// This will create cell with imageView, title and description
+    ///
+    /// - Parameters:
+    ///   - style: style
+    ///   - reuseIdentifier: reuseIdentifier
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.addSubview(backView)
